@@ -17,13 +17,13 @@ const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0
 scene.createDefaultCameraOrLight(true);
 scene.activeCamera.attachControl(canvas, false);
  
-// 加载FBX文件
+// 加载glb文件
 BABYLON.SceneLoader.ImportMesh("", "camel/walk.glb", "", scene, function (newMeshes) {
     // 这里可以处理加载后的Mesh，例如调整尺寸、位置等
-    // newMeshes[0].scaling = new BABYLON.Vector3(100, 100, 100);
-    newMeshes[0].rotation = new BABYLON.Vector3(0, Math.PI / 2, 0);
+    newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+    newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
+    newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
 });
- 
 // 进入渲染循环
 engine.runRenderLoop(function () {
     scene.render();
@@ -35,3 +35,4 @@ window.addEventListener("resize", function () {
     canvas.height = window.innerHeight;
     engine.resize();
 });
+// 监听postMessage信息并更换骆驼模型
