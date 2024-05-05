@@ -50,4 +50,6 @@ function initCamel() {
         newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
         newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
     });
+    let descriptionElement = document.getElementById("camelDescription");
+    descriptionElement.innerHTML = camelDescription || "你的牛马积极打工中";
 }
