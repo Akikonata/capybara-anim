@@ -18,14 +18,7 @@ scene.createDefaultCameraOrLight(true);
 scene.activeCamera.attachControl(canvas, false);
 let camel = null;
 // 加载glb文件
-BABYLON.SceneLoader.ImportMesh("", "camel/idle.glb", "", scene, function (newMeshes) {
-    camel?.dispose();
-    camel = newMeshes[0];
-    // 这里可以处理加载后的Mesh，例如调整尺寸、位置等
-    newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-    newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-    newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
-});
+initCamel();
 // 进入渲染循环
 engine.runRenderLoop(function () {
     scene.render();
@@ -38,39 +31,23 @@ window.addEventListener("resize", function () {
     engine.resize();
 });
 
-// 监听postMessage信息并更换骆驼模型
-window.addEventListener("message", function (event) {
-    if (event.data === "walk") {
-        BABYLON.SceneLoader.ImportMesh("", "camel/walk.glb", "", scene, function (newMeshes) {
-            camel?.dispose();
-            camel = newMeshes[0];
-            newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-            newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-            newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
-        });
-    } else if (event.data === "run") {
-        BABYLON.SceneLoader.ImportMesh("", "camel/run.glb", "", scene, function (newMeshes) {
-            camel?.dispose();
-            camel = newMeshes[0];
-            newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-            newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-            newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
-        });
-    } else if (event.data === "dead") {
-        BABYLON.SceneLoader.ImportMesh("", "camel/dead.glb", "", scene, function (newMeshes) {
-            camel?.dispose();
-            camel = newMeshes[0];
-            newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-            newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-            newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
-        });
-    } else {
-        BABYLON.SceneLoader.ImportMesh("", "camel/idle.glb", "", scene, function (newMeshes) {
-            camel?.dispose();
-            camel = newMeshes[0];
-            newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
-            newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-            newMeshes[0].position = new BABYLON.Vector3(0.5, -0.5, 0);
-        });
-    }
-});
+// {
+//     "action": "死掉",
+//     "description": "骆驼已经彻底躺平，不再动弹。",
+//     "emotion": "坚定",
+//     "movement": "0"
+// }
+function initCamel() {
+    const url = new URL(window.location.href);
+    const camelAction = url.searchParams.get("action");
+    const camelDescription = url.searchParams.get("description");
+    const camelEmotion = url.searchParams.get("emotion");
+    const camelMovement = url.searchParams.get("movement");
+    BABYLON.SceneLoader.ImportMesh("", `camel/${camelAction || 'walk'}.glb`, "", scene, function (newMeshes) {
+        camel?.dispose();
+        camel = newMeshes[0];
+        newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
+        newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
+    });
+}
