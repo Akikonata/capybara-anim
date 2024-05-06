@@ -46,9 +46,9 @@ function initCamel() {
     BABYLON.SceneLoader.ImportMesh("", `camel/${camelAction || 'walk'}.glb`, "", scene, function (newMeshes) {
         camel?.dispose();
         camel = newMeshes[0];
-        newMeshes[0].scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
+        newMeshes[0].scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
         newMeshes[0].rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-        newMeshes[0].position = new BABYLON.Vector3(0, -0.5, 0);
+        newMeshes[0].position = new BABYLON.Vector3(0.1, -0.5, 0);
     });
     let descriptionElement = document.getElementById("camelDescription");
     descriptionElement.innerHTML = camelDescription || "你的牛马积极打工中";
