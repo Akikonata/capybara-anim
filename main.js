@@ -10,7 +10,7 @@ const engine = new BABYLON.Engine(canvas, true);
 const scene = new BABYLON.Scene(engine);
  
 // 添加相机和光源
-const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / -1, Math.PI / 2.5, 13, new BABYLON.Vector3(0, 0, 0), scene);
+const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / -0.8, Math.PI / 2.5, 13, new BABYLON.Vector3(0, 0, 0), scene);
 const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
  
 // 创建一个简单的用户界面
